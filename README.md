@@ -13,4 +13,4 @@ Daniel D:
 - [ ] Cree un arreglo de tamaño TAMANO y tipo TIPO
 
 Daniel:
-- [ ]
+- [ ] asdf
