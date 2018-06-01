@@ -20,10 +20,18 @@
 %token <sval> STR
 %token <sval> TIPO
 %token <sval> IDEN
-%token Imprima
-%token Cree
+%token <ival> SIZE
 
-%type <sval> exp
+/* Acciones de un argumento*/
+%token Imprima Cree
+
+/* Acciones de dos argumentos */
+%token Compare
+
+/* Otras palabras reservadas */
+%token CON ARRAY METHOD LVAR
+
+%type <sval> exp action
 
 %left '-' '+'
 %left '*' '/'
@@ -41,8 +49,9 @@ line:    NL      { if (interactive) System.out.print("Expression: "); }
                    if (interactive) System.out.print("Expression: "); }
        ;
 
-exp:     Imprima STR         { String str = String.format("System.out.println(%s)", $2); $$ = str;}
-       | Cree IDEN           { $$ = String.format("void %s(){}", $2);}
+exp:    action          {$$ = $1;}
+        ;
+
        /*| NUM                { $$ = $1; }
        | exp '+' exp        { $$ = $1 + $3; }
        | exp '-' exp        { $$ = $1 - $3; }
@@ -51,6 +60,11 @@ exp:     Imprima STR         { String str = String.format("System.out.println(%s
        | '-' exp  %prec NEG { $$ = -$2; }
        | exp '^' exp        { $$ = Math.pow($1, $3); }
        | '(' exp ')'        { $$ = $2; }*/
+        ;
+action:   Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
+        | Cree METHOD IDEN       { $$ = String.format("void %s(){}", $3);}
+        | Cree ARRAY IDEN SIZE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $5, $3, $5, $4);}
+        | Compare IDEN CON IDEN {$$ = String.format("if (%s == %s) {}", $2, $4);}
         ;
 
 %%

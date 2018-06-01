@@ -26,8 +26,11 @@ NL  = \n | \r | \r\n
 STR = \"[^\"]*\"
 IMPRIMA = "imprima"
 CREE = "cree"
+COMPARE = "compare"
 TIPO = "String" | "int" | "double" | "char"
 IDEN = [a-zA-Z_][a-zA-Z0-9_]*
+SIZE = [1-9][0-9]*
+
 %%
 
 /* operators */
@@ -40,6 +43,13 @@ IDEN = [a-zA-Z_][a-zA-Z0-9_]*
 "(" |
 ")"    { return (int) yycharat(0); }
 
+/*Otras palabras*/
+"con"  { return Parser.CON;}
+
+"arreglo" { return Parser.ARRAY;}
+"metodo"  { return Parser.METHOD;}
+"variable" { return Parser.LVAR;}
+
 
 /* newline */
 {NL}   { return Parser.NL; }
@@ -49,17 +59,22 @@ IDEN = [a-zA-Z_][a-zA-Z0-9_]*
 
 {CREE}  {return Parser.Cree;}
 
+{COMPARE} {return Parser.Compare;}
+
+/* Variables */
+{TIPO}  { yyparser.yylval = new ParserVal(yytext()); return Parser.TIPO; }
+
 {IDEN}  { yyparser.yylval = new ParserVal(yytext()); return Parser.IDEN; }
 
-{TIPO}  { yyparser.yylval = new ParserVal(yytext()); return Parser.TIPO; }
+{SIZE}  { yyparser.yylval = new ParserVal(Integer.parseInt(yytext())); return Parser.SIZE;}
 
 /* Strings */
 {STR}   { yyparser.yylval = new ParserVal(yytext()); return Parser.STR; }
 
 /* float */
 
-{NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
-         return Parser.NUM; }
+//{NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
+         //return Parser.NUM; }
 
 
 /* whitespace */
