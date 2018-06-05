@@ -49,7 +49,7 @@ SIZE = "-"?[1-9][0-9]*
 "(" |
 ")"    { return (int) yycharat(0); }
 
-/*Otras palabras*/
+/*Otras palabras reservadas*/
 "con"  { return Parser.CON;}
 
 "arreglo" { return Parser.ARRAY;}
@@ -57,6 +57,9 @@ SIZE = "-"?[1-9][0-9]*
 "variable" { return Parser.LVAR;}
 "tipo"    { return Parser.LTYPE;}
 "valor"     { return Parser.LVALUE;}
+"for"       { return Parser.FOR;}
+"desde"     { return Parser.LFROM;}
+"hasta"     { return Parser.LTO;}
 
 
 /* newline */

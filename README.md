@@ -16,7 +16,7 @@ Daniel D:
 - [x] Import package
 - [x] Declare variables
 - [x] Asigne valor a una variable
-- [ ] Escriba un for desde NUMERO hasta NUMERO
+- [x] Cree un for desde NUMERO hasta NUMERO
 
 Daniel:
 - [ ] asdf

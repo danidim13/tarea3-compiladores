@@ -27,7 +27,7 @@
 %token Importe Imprima Cree Compare Declare Asigne
 
 /* Otras palabras reservadas */
-%token CON ARRAY METHOD LVAR LTYPE LVALUE
+%token CON ARRAY METHOD LVAR LTYPE LVALUE FOR LFROM LTO
 
 %type <sval> exp action pack const
 
@@ -63,6 +63,7 @@ action:   Importe pack { $$ = String.format("import %s;", $2);}
         | Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
         | Cree METHOD IDEN       { $$ = String.format("void %s(){}", $3);}
         | Cree ARRAY IDEN SIZE LTYPE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $6, $3, $6, $4);}
+        | Cree FOR LFROM SIZE LTO SIZE {$$ = String.format("for (int i = %d; i < %d; i++){}", $4, $6);}
         | Compare IDEN CON IDEN {$$ = String.format("if (%s == %s) {}", $2, $4);}
         | Declare LVAR IDEN LTYPE TIPO {$$ = String.format("%s %s;", $5, $3);}
         | Asigne LVALUE const 'a' IDEN {$$ = String.format("%s = %s;", $5, $3);}
