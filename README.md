@@ -5,6 +5,16 @@
 Enunciado
 https://docs.google.com/document/d/1rf-jq1dHmwQ15BDBqSfX740F1aKUcmsf55KhHJGiUco/edit#
 
+## Uso
+Se incluye un ejemplo de los comandos en el archivo ```ejemplo.txt```.
+
+Para correr el ejemplo:
+
+```
+$ make all
+$ java Parser ejemplo.txt
+```
+
 ### Tareas
 
 Daniel D:
@@ -18,5 +28,5 @@ Daniel D:
 - [x] Asigne valor a una variable
 - [x] Cree un for desde NUMERO hasta NUMERO
 
-Daniel:
+Daniel E:
 - [ ] asdf

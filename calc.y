@@ -60,7 +60,7 @@ exp:    action          {$$ = $1;}
        | '(' exp ')'        { $$ = $2; }*/
         ;
 action:   Importe pack { $$ = String.format("import %s;", $2);}
-        | Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
+        | Imprima STR     { $$ = String.format("System.out.println(%s);", $2);}
         | Cree METHOD IDEN       { $$ = String.format("void %s(){}", $3);}
         | Cree ARRAY IDEN SIZE LTYPE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $6, $3, $6, $4);}
         | Cree FOR LFROM SIZE LTO SIZE {$$ = String.format("for (int i = %d; i < %d; i++){}", $4, $6);}
@@ -110,7 +110,7 @@ const:    STR       {$$ = $1;}
   static boolean interactive;
 
   public static void main(String args[]) throws IOException {
-    System.out.println("BYACC/Java with JFlex Calculator Demo");
+    System.out.println("BYACC/Java Interprete de comandos para IDE Mark 50");
 
     Parser yyparser;
     if ( args.length > 0 ) {
