@@ -53,7 +53,7 @@ SIZE = [1-9][0-9]*
 "arreglo" { return Parser.ARRAY;}
 "metodo"  { return Parser.METHOD;}
 "variable" { return Parser.LVAR;}
-"tipo"    { return Parser.TYPE;}
+"tipo"    { return Parser.LTYPE;}
 
 
 
