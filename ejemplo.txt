@@ -1,0 +1,14 @@
+importe java.lang.StringBuffer
+importe java.io.*
+
+
+cree arreglo m_datos 10 tipo int
+declare variable m_nombre tipo String
+declare variable m_edad tipo int
+declare variable m_annos tipo int
+asigne valor "Daniel Diaz" a m_nombre
+
+cree metodo main
+
+imprima "Hola Mundo!"
+compare m_edad con m_annos
