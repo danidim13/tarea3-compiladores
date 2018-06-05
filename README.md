@@ -13,6 +13,10 @@ Daniel D:
 - [x] Cree un arreglo de tamaño TAMANO y tipo TIPO
 - [ ] Cree parámetro TIPO en METODO
 - [x] Compare si Variable1 es igual a Variable2
+- [x] Import package
+- [ ] Declare variables
+- [ ] Asigne valor a una variable
+- [ ] Escriba un for desde NUMERO hasta NUMERO
 
 Daniel:
 - [ ] asdf
