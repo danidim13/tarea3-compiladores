@@ -21,7 +21,7 @@
   }
 %}
 
-NUM = [0-9]+ ("." [0-9]+)?
+NUM = "-"?[0-9]+ ("." [0-9]+)?
 NL  = \n | \r | \r\n
 STR = \"[^\"]*\"
 IMPORTE = "importe"
@@ -29,15 +29,17 @@ IMPRIMA = "imprima"
 CREE = "cree"
 DECLARE = "declare"
 COMPARE = "compare"
+ASIGNE = "asigne"
 TIPO = "String" | "int" | "double" | "char"
 IDEN = [a-zA-Z_][a-zA-Z0-9_]*
-SIZE = [1-9][0-9]*
+SIZE = "-"?[1-9][0-9]*
 
 %%
 
 /* operators */
 
-"."     { return yycharat(0);}
+"." |
+"a"    { return yycharat(0);}
 
 "+" |
 "-" |
@@ -54,7 +56,7 @@ SIZE = [1-9][0-9]*
 "metodo"  { return Parser.METHOD;}
 "variable" { return Parser.LVAR;}
 "tipo"    { return Parser.LTYPE;}
-
+"valor"     { return Parser.LVALUE;}
 
 
 /* newline */
@@ -68,6 +70,7 @@ SIZE = [1-9][0-9]*
 {DECLARE} {return Parser.Declare;}
 
 {COMPARE} {return Parser.Compare;}
+{ASIGNE}  {return Parser.Asigne;}
 
 /* Variables */
 {TIPO}  { yyparser.yylval = new ParserVal(yytext()); return Parser.TIPO; }

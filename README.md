@@ -14,8 +14,8 @@ Daniel D:
 - [ ] Cree parámetro TIPO en METODO
 - [x] Compare si Variable1 es igual a Variable2
 - [x] Import package
-- [ ] Declare variables
-- [ ] Asigne valor a una variable
+- [x] Declare variables
+- [x] Asigne valor a una variable
 - [ ] Escriba un for desde NUMERO hasta NUMERO
 
 Daniel:

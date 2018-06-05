@@ -24,14 +24,14 @@
 %token <ival> SIZE
 
 /* Acciones que modifican el codigo*/
-%token Importe Imprima Cree Compare Declare
+%token Importe Imprima Cree Compare Declare Asigne
 
 /* Otras palabras reservadas */
-%token CON ARRAY METHOD LVAR LTYPE
+%token CON ARRAY METHOD LVAR LTYPE LVALUE
 
-%type <sval> exp action pack
+%type <sval> exp action pack const
 
-%left '-' '+' '.'
+%left '-' '+' '.' 'a'
 %left '*' '/'
 %left NEG          /* negation--unary minus */
 %right '^'         /* exponentiation        */
@@ -65,10 +65,15 @@ action:   Importe pack { $$ = String.format("import %s;", $2);}
         | Cree ARRAY IDEN SIZE LTYPE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $6, $3, $6, $4);}
         | Compare IDEN CON IDEN {$$ = String.format("if (%s == %s) {}", $2, $4);}
         | Declare LVAR IDEN LTYPE TIPO {$$ = String.format("%s %s;", $5, $3);}
+        | Asigne LVALUE const 'a' IDEN {$$ = String.format("%s = %s;", $5, $3);}
         ;
 
 pack:     IDEN '.' pack  { $$ = String.format("%s.%s", $1, $3);}
         | IDEN           { $$ = $1;}
+        ;
+
+const:    STR       {$$ = $1;}
+        | SIZE      {$$ = String.format("%d", $1);}
         ;
 
 %%
