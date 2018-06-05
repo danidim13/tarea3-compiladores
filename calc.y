@@ -20,10 +20,11 @@
 %token <sval> STR
 %token <sval> TIPO
 %token <sval> IDEN
+%token <sval> PACK
 %token <ival> SIZE
 
 /* Acciones de un argumento*/
-%token Imprima Cree
+%token Importe Imprima Cree
 
 /* Acciones de dos argumentos */
 %token Compare
@@ -31,9 +32,9 @@
 /* Otras palabras reservadas */
 %token CON ARRAY METHOD LVAR
 
-%type <sval> exp action
+%type <sval> exp action pack
 
-%left '-' '+'
+%left '-' '+' '.'
 %left '*' '/'
 %left NEG          /* negation--unary minus */
 %right '^'         /* exponentiation        */
@@ -61,10 +62,15 @@ exp:    action          {$$ = $1;}
        | exp '^' exp        { $$ = Math.pow($1, $3); }
        | '(' exp ')'        { $$ = $2; }*/
         ;
-action:   Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
+action:   Importe pack { $$ = String.format("import %s;", $2);}
+        | Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
         | Cree METHOD IDEN       { $$ = String.format("void %s(){}", $3);}
         | Cree ARRAY IDEN SIZE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $5, $3, $5, $4);}
         | Compare IDEN CON IDEN {$$ = String.format("if (%s == %s) {}", $2, $4);}
+        ;
+
+pack:     IDEN '.' pack  { $$ = String.format("%s.%s", $1, $3);}
+        | IDEN           { $$ = $1;}
         ;
 
 %%

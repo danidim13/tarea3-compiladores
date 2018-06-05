@@ -24,6 +24,7 @@
 NUM = [0-9]+ ("." [0-9]+)?
 NL  = \n | \r | \r\n
 STR = \"[^\"]*\"
+IMPORTE = "importe"
 IMPRIMA = "imprima"
 CREE = "cree"
 COMPARE = "compare"
@@ -34,6 +35,8 @@ SIZE = [1-9][0-9]*
 %%
 
 /* operators */
+
+"."     { return yycharat(0);}
 
 "+" |
 "-" |
@@ -55,6 +58,7 @@ SIZE = [1-9][0-9]*
 {NL}   { return Parser.NL; }
 
 /* Acciones */
+{IMPORTE} {return Parser.Importe;}
 {IMPRIMA} {return Parser.Imprima;}
 
 {CREE}  {return Parser.Cree;}
