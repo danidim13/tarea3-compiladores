@@ -16,7 +16,7 @@
 %}
 
 %token NL          /* newline  */
-%token <dval> NUM  /* a number */
+%token <dval> DOUBLE  /* a number */
 %token <sval> STR
 %token <sval> TIPO
 %token <sval> IDEN
@@ -70,11 +70,13 @@ action:   Importe pack { $$ = String.format("import %s;", $2);}
         ;
 
 pack:     IDEN '.' pack  { $$ = String.format("%s.%s", $1, $3);}
+        | IDEN '.' '*'   { $$ = String.format("%s.*", $1);}
         | IDEN           { $$ = $1;}
         ;
 
 const:    STR       {$$ = $1;}
-        | SIZE      {$$ = String.format("%d", $1);}
+        | SIZE      {$$ = Integer.toString($1);}
+        | DOUBLE    {$$ = Double.toString($1);}
         ;
 
 %%

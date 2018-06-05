@@ -21,7 +21,7 @@
   }
 %}
 
-NUM = "-"?[0-9]+ ("." [0-9]+)?
+DOUBLE = "-"?[0-9]+ "." ([0-9]+)?
 NL  = \n | \r | \r\n
 STR = \"[^\"]*\"
 IMPORTE = "importe"
@@ -39,7 +39,8 @@ SIZE = "-"?[1-9][0-9]*
 /* operators */
 
 "." |
-"a"    { return yycharat(0);}
+"a" |
+"*"   { return yycharat(0);}
 
 "+" |
 "-" |
@@ -87,8 +88,7 @@ SIZE = "-"?[1-9][0-9]*
 
 /* float */
 
-//{NUM}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext()));
-         //return Parser.NUM; }
+{DOUBLE}  { yyparser.yylval = new ParserVal(Double.parseDouble(yytext())); return Parser.DOUBLE;}
 
 
 /* whitespace */
