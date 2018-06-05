@@ -23,14 +23,11 @@
 %token <sval> PACK
 %token <ival> SIZE
 
-/* Acciones de un argumento*/
-%token Importe Imprima Cree
-
-/* Acciones de dos argumentos */
-%token Compare
+/* Acciones que modifican el codigo*/
+%token Importe Imprima Cree Compare Declare
 
 /* Otras palabras reservadas */
-%token CON ARRAY METHOD LVAR
+%token CON ARRAY METHOD LVAR TYPE
 
 %type <sval> exp action pack
 
@@ -65,8 +62,9 @@ exp:    action          {$$ = $1;}
 action:   Importe pack { $$ = String.format("import %s;", $2);}
         | Imprima STR     { $$ = String.format("System.out.println(%s)", $2);}
         | Cree METHOD IDEN       { $$ = String.format("void %s(){}", $3);}
-        | Cree ARRAY IDEN SIZE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $5, $3, $5, $4);}
+        | Cree ARRAY IDEN SIZE TYPE TIPO { $$ = String.format("%s %s[] = new %s[%d];", $6, $3, $6, $4);}
         | Compare IDEN CON IDEN {$$ = String.format("if (%s == %s) {}", $2, $4);}
+        | Declare LVAR IDEN TYPE TIPO {$$ = String.format("%s %s;", $5, $3);}
         ;
 
 pack:     IDEN '.' pack  { $$ = String.format("%s.%s", $1, $3);}

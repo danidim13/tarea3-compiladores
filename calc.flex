@@ -27,6 +27,7 @@ STR = \"[^\"]*\"
 IMPORTE = "importe"
 IMPRIMA = "imprima"
 CREE = "cree"
+DECLARE = "declare"
 COMPARE = "compare"
 TIPO = "String" | "int" | "double" | "char"
 IDEN = [a-zA-Z_][a-zA-Z0-9_]*
@@ -52,6 +53,8 @@ SIZE = [1-9][0-9]*
 "arreglo" { return Parser.ARRAY;}
 "metodo"  { return Parser.METHOD;}
 "variable" { return Parser.LVAR;}
+"tipo"    { return Parser.TYPE;}
+
 
 
 /* newline */
@@ -62,6 +65,7 @@ SIZE = [1-9][0-9]*
 {IMPRIMA} {return Parser.Imprima;}
 
 {CREE}  {return Parser.Cree;}
+{DECLARE} {return Parser.Declare;}
 
 {COMPARE} {return Parser.Compare;}
 
